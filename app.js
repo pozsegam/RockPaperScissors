@@ -34,25 +34,108 @@ function round(computerSelection, playerSelection){
         return 1;
 }
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let computerSelection = computerPlay();
-        let playerSelection = prompt("Rock, Paper, Scissors?")
-        let res =  round(computerSelection, playerSelection);
-        console.log(res);
-        if(res === 1) playerScore++;
-        if (res ===0)computerScore++;
+
+function play(event ){
+        //reset();
+        eventDiv.textContent = "Let's go!";
+        const compC = computerPlay();
+        const res = round(compC,event);
+        if(res === 1) {
+            playerScore++;
+            rounds++;
+            playerScoreDiv.textContent = "You: " + playerScore;
+            eventDiv.textContent ="+1 for you!";
+        }        
+        if(res === 0) {
+            computerScore++;
+            rounds++;
+            computerScoreDiv.textContent = "Computer: " + computerScore;
+            eventDiv.textContent ="meh :(";
+        }
+        if(res === 2){
+            rounds++;
+            eventDiv.textContent ="Draw!";
+        } 
         
-    }   
-    console.log("Computer:" + computerScore);
-    console.log("You:" + playerScore);
-    if(playerScore>computerScore) return "YAAAY, You Win!"
-    else if (playerScore === computerScore) return "Draw! :|"
-    else return "You Lose... :( "
+        if(computerScore===5){
+            computerScore = 0;
+            computerScoreDiv.textContent = "Computer: " + computerScore;
+            playerScore = 0;
+            playerScoreDiv.textContent = "You: " + playerScore;
+            rounds = 0;
+            eventDiv.textContent ="You Lose!";
+        }
+         
+        if(playerScore===5){
+            computerScore = 0;
+            computerScoreDiv.textContent = "Computer: " + computerScore;
+            playerScore = 0;
+            playerScoreDiv.textContent = "You: " + playerScore;
+            rounds = 0;
+            winStyling();
+        }
+
+    
+   }   
+
+
+function winStyling(){
+    const playAgain = document.getElementById('playAgain');
+    document.getElementById('win').style.visibility = 'visible'; 
+    document.getElementById('hero').style.visibility = 'hidden';
+    this.styclassName = 'hero_playAgain';
+    playAgain.addEventListener('click', function(e){
+        reset();
+        play();
+    });
+}
+
+function reset(){
+    document.getElementById('win').style.visibility = 'hidden'; 
+    document.getElementById('hero').style.visibility = 'visible';
 }
 
 
-console.log(game());
+
+
+
+const hero = document.getElementById('hero');
+hero.classList.add('heroClass');
+
+const rockBtn = document.getElementById('rock');
+rockBtn.addEventListener('click', function (e) {
+    play(e.target.id); 
+});
+
+const paperBtn = document.getElementById('paper');
+paperBtn.addEventListener('click', function (e) {
+    play(e.target.id); 
+});
+
+const scissorsBtn = document.getElementById('scissors');
+scissorsBtn.addEventListener('click', function (e) {
+    play(e.target.id); 
+});
+
+
+let playerScore = 0;
+let computerScore = 0;
+let rounds = 0;
+
+reset();
+
+
+const scoreboard = document.getElementById('scoreBoard');
+const eventDiv = document.getElementById('event');
+
+let playerScoreDiv = document.createElement('div')
+playerScoreDiv.textContent = "You: " + computerScore;
+
+
+let computerScoreDiv = document.createElement('div')
+computerScoreDiv.textContent = "Computer: " + computerScore;
+
+
+scoreboard.appendChild(playerScoreDiv);
+scoreboard.appendChild(computerScoreDiv);
 

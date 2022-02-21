@@ -3,10 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="app.js"></script>
+    <title>RockPaperScissors</title>
+    <!-- 
+        defer fontos, mert meg nem toltott be teljesen a DOM
+        igy a script nem talalja az alatta levo elemeket
+    -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    </style> 
+    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="main.css" defer>
 </head>
 <body>
-    
+    <div class="hero" id="hero">
+        <div class="event" id="event"></div>
+        <div class="buttons">    
+            <button class="rock" id="rock">Rock</button>
+            <button class="paper" id="paper">Paper</button>
+            <button class="scissors" id="scissors">Scissors</button> 
+        </div>
+
+        <div class="scoreboard" id="scoreBoard"> </div>
+    </div>
+    <div class="win" id="win">
+        <h1 id="winText">You Win!</h1>
+        <button id="playAgain"> Play Again</button>
+    </div>
 </body>
 </html>
